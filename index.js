@@ -16,8 +16,11 @@ app.get('/uninstall(.sh)?', function (req, res, next) {
 });
 
 app.get('/:token', function (req, res, next) {
+  // remove non-token characters
+  var token = req.params.token.replace(/[^a-zA-Z0-0]/g, "");
+
   res.set('Content-Type', 'text/plain');
-  res.send(installScript.replace('accept_token=""', 'accept_token="' + req.params.token + '"'));
+  res.send(installScript.replace('accept_token=""', 'accept_token="' + token + '"'));
 });
 
 var server = app.listen(process.env.PORT || 3333, function () {
