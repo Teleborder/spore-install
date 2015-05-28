@@ -27,10 +27,12 @@ accept_token=""
 accept_size=${#accept_token}
 
 # Check that npm is installed, and fail the build if it's not
-printf "\n\n"
-printf " -------> Checking for npm...\n"
+cat<<"EOF"
+
+ -------> Checking for npm...
+EOF
 command -v npm >/dev/null 2>&1 || {
-  cat<<"EOF"
+cat<<"EOF"
  -------> npm not found.
 
  -------> npm is required to install Spore.
@@ -40,62 +42,97 @@ EOF
   exit 1
 }
 
-printf " -------> npm found.\n\n"
+cat<<"EOF"
+ -------> npm found.
+
+EOF
 
 # This always does a clean install of the latest version of Spore into
 # your global npm path, which is visible when you do:
 #    npm config get prefix
-printf " -------> Installing CLI...\n\n"
+cat<<"EOF"
+ -------> Installing Spore CLI (spore-cli)...
+
+EOF
 npm install -g git+ssh://git@github.com:Teleborder/spore-cli-node.git
 if [ $? == 1 ]; then
-  cat<<"EOF"
+cat<<"EOF"
  -------> CLI install failed. If you are getting an EACCESS error,
- -------> make sure you are the owner of the npm install directory.
+          make sure you are the owner of the npm install directory.
 
- -------> Take ownership by doing:
- ------->    sudo chown -R $USER $(npm config get prefix)
+ -------> Take ownership by executing:
+             sudo chown -R $USER $(npm config get prefix)
 
- -------> This is much safer than running the entire script with `sudo`.
+ -------> This is much safer than running the entire install script with `sudo`.
 
 EOF
   exit 1
 fi
 
-printf "\n"
-printf " -------> CLI installed.\n\n"
+cat<<"EOF"
+
+ -------> Spore CLI installed.
+
+EOF
 
 # Install the daemon
-printf " -------> Installing daemon...\n\n"
+cat<<"EOF"
+ -------> Installing Spore Daemon (spored)...
+
+
+EOF
 npm install -g git+ssh://git@github.com:Teleborder/spored.git
 if [ $? == 1 ]; then
-  cat<<"EOF"
- -------> Daemon install failed.
+cat<<"EOF"
+ -------> Spore Daemon install failed.
 
 EOF
   exit 1
 fi
 
-printf "\n"
-printf " -------> Daemon installed.\n\n"
+cat<<"EOF"
+
+ -------> Spore Daemon installed.
+
+EOF
+
+if [ $(uname) != "Darwin" ]; then
+cat<<"EOF"
+
+ -------> spored needs to be running to continue.
+          See how to get it started at https://github.com/Teleborder/spored
+          Once it's running, Press any key to continue.
+
+EOF
+read -n 1 -s
+fi
 
 # Sign up for a Spore account
-printf " -------> Creating Spore account...\n\n"
+cat<<"EOF"
+ -------> Creating Spore account...
+          (Your action is required)
+
+EOF
 spore account:signup
 
 if [ $? == 1 ]; then exit 1; fi
 
 # if they have an accept token, accept it
 if [ ${accept_size} != 0 ]; then
-  printf "\n"
-  printf " -------> Accepting app invitation...\n\n"
+cat<<"EOF"
+
+ -------> Accepting app invitation...
+
+EOF
   spore accept $accept_token
 fi
 
 cat<<"EOF"
 
  -------> Spore is now installed!
+
  -------> Use `spore --help` to get started, or just `spore init` inside
- -------> your first app root directory.
+          an app's root directory.
 
 EOF
 
