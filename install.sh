@@ -1,11 +1,14 @@
 #!/bin/sh
 
-# This is the Spore install script. (Heavily inspired by Meteor's install script)
+# This is the Spore install script.
 #
 # Are you looking at this in your web browser, and would like to install Spore?
 # Just open up your terminal and type:
 #
 #    curl https://install.spore.sh | sh
+# 
+# This script owes a debt of gratitude to the Meteor install script which it was 
+# heavily inspired by.
 
 # We wrap this whole script in a function, so that we won't execute
 # until the entire script is downloaded.
@@ -19,15 +22,16 @@ set -e
 # Let's display everything on stderr.
 exec 1>&2
 
-# Get the acceptance code if there is one
-accept_code=""
-accept_size=${#accept_code}
+# This line contains the acceptance token (if there is one)
+accept_token=""
+accept_size=${#accept_token}
 
 # Check that npm is installed, and fail the build if it's not
-printf " -------> Checking for npm... "
+printf "\n\n"
+printf " -------> Checking for npm...\n"
 command -v npm >/dev/null 2>&1 || {
   cat<<"EOF"
-not found.
+ -------> npm not found.
 
  -------> npm is required to install Spore.
  -------> Use one of the Node.js installers at https://node.js.org to install npm.
@@ -36,7 +40,7 @@ EOF
   exit 1
 }
 
-printf "done.\n"
+printf " -------> npm found.\n\n"
 
 # This always does a clean install of the latest version of Spore into
 # your global npm path, which is visible when you do:
@@ -66,10 +70,11 @@ spore account:signup
 
 if [ $? == 1 ]; then exit 1; fi
 
-# if they don't have an accept code, we're done installing
+# if they have an accept token, accept it
 if [ ${accept_size} != 0 ]; then
+  printf "\n"
   printf " -------> Accepting app invitation...\n\n"
-  spore accept $accept_code
+  spore accept $accept_token
 fi
 
 cat<<"EOF"

@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Teleborder/spore-install/issues"
   },
-  "homepage": "https://github.com/Teleborder/spore-install"
+  "homepage": "https://github.com/Teleborder/spore-install",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
 }
