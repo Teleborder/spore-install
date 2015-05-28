@@ -1,6 +1,6 @@
 {
   "name": "spore-install",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Install script and server for Spore",
   "main": "index.js",
   "scripts": {

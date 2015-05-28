@@ -2,16 +2,22 @@ var express = require('express'),
     app = express(),
     fs = require('fs'),
     path = require('path'),
-    script = fs.readFileSync(path.resolve(__dirname, 'install.sh'), { encoding: 'utf8' });
+    installScript = fs.readFileSync(path.resolve(__dirname, 'install.sh'), { encoding: 'utf8' }),
+    uninstallScript = fs.readFileSync(path.resolve(__dirname, 'uninstall.sh'), { encoding: 'utf8' });
 
 app.get('/', function (req, res, next) {
   res.set('Content-Type', 'text/plain');
-  res.send(script);
+  res.send(installScript);
+});
+
+app.get('/uninstall(.sh)?', function (req, res, next) {
+  res.set('Content-Type', 'text/plain');
+  res.send(uninstallScript);
 });
 
 app.get('/:token', function (req, res, next) {
   res.set('Content-Type', 'text/plain');
-  res.send(script.replace('accept_token=""', 'accept_token="' + req.params.token + '"'));
+  res.send(installScript.replace('accept_token=""', 'accept_token="' + req.params.token + '"'));
 });
 
 var server = app.listen(process.env.PORT || 3333, function () {
