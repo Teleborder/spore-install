@@ -185,7 +185,7 @@ EOF
   spore accept $accept_token
 fi
 
-cat<<EOF
+cat<<"EOF"
 
  -------> Spore is now installed!
 
