@@ -64,6 +64,20 @@ fi
 printf "\n"
 printf " -------> CLI installed.\n\n"
 
+# Install the daemon
+printf " -------> Installing daemon...\n\n"
+npm install -g git+ssh://git@github.com:Teleborder/spored.git
+if [ $? == 1 ]; then
+  cat<<"EOF"
+ -------> Daemon install failed.
+
+EOF
+  exit 1
+fi
+
+printf "\n"
+printf " -------> Daemon installed.\n\n"
+
 # Sign up for a Spore account
 printf " -------> Creating Spore account...\n\n"
 spore account:signup
