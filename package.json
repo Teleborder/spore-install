@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/Teleborder/spore-install"
+    "url": "github.com/spore-sh/spore-install"
   },
   "keywords": [
     "spore",
     "install",
     "sh"
   ],
-  "author": "Trey Griffith <trey@teleborder.com>",
+  "author": "Trey Griffith <trey@tgriff3.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Teleborder/spore-install/issues"
+    "url": "https://github.com/spore-sh/spore-install/issues"
   },
-  "homepage": "https://github.com/Teleborder/spore-install",
+  "homepage": "https://github.com/spore-sh/spore-install",
   "dependencies": {
     "express": "^4.12.4"
   }
