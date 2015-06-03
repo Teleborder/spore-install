@@ -109,7 +109,7 @@ cat<<EOF
  -------> Installing Spore CLI (spore-cli)...
 
 EOF
-npm install -g git+ssh://git@github.com:Teleborder/spore-cli-node.git
+npm install -g git://git@github.com:spore-sh/spore-cli-node.git
 if [ $? == 1 ]; then
 cat<<"EOF"
  -------> CLI install failed. If you are getting an EACCESS error,
@@ -136,7 +136,7 @@ cat<<EOF
 
 
 EOF
-npm install -g git+ssh://git@github.com:Teleborder/spored.git
+npm install -g git://git@github.com:spore-sh/spored.git
 if [ $? == 1 ]; then
 cat<<EOF
 
@@ -158,7 +158,7 @@ if [ $(uname) != "Darwin" ]; then
 cat<<EOF
 
  -------> The Spore Daemon (spored) needs to be running to continue.
-          See how to get it started at https://github.com/Teleborder/spored
+          See how to get it started at https://github.com/spore-sh/spored
           Once it's running, Press any key to continue.
 
 EOF
