@@ -109,7 +109,7 @@ cat<<EOF
  -------> Installing Spore CLI (spore-cli)...
 
 EOF
-npm install -g git://git@github.com:spore-sh/spore-cli-node.git
+npm install -g spore-cli
 if [ $? == 1 ]; then
 cat<<"EOF"
  -------> CLI install failed. If you are getting an EACCESS error,
@@ -136,7 +136,7 @@ cat<<EOF
 
 
 EOF
-npm install -g git://git@github.com:spore-sh/spored.git
+npm install -g spored
 if [ $? == 1 ]; then
 cat<<EOF
 
