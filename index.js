@@ -18,9 +18,15 @@ app.get('/uninstall(.sh)?', function (req, res, next) {
 app.get('/:token', function (req, res, next) {
   // remove non-token characters
   var token = req.params.token.replace(/[^a-zA-Z0-9]/g, "");
+  var script = installScript;
+
+  if(token) {
+    script = script.replace('accept_token=""', 'accept_token="' + token + '"');
+    script = script.replace('https://install.spore.sh', 'https://install.spore.sh/' + token);
+  }
 
   res.set('Content-Type', 'text/plain');
-  res.send(installScript.replace('accept_token=""', 'accept_token="' + token + '"'));
+  res.send(script);
 });
 
 var server = app.listen(process.env.PORT || 3333, function () {
